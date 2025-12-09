@@ -1,0 +1,157 @@
+import type { Component } from 'ripple';
+
+component Divider(props: { src?: string }) {
+	<img
+		src={props.src ??
+			'https://www.animatedimages.org/data/media/134/animated-dividing-line-image-0080.gif'}
+	/>
+	<style>
+		img {
+			width: 100%;
+			margin: 0.5rem 0;
+		}
+	</style>
+}
+
+// dont actually need export here, but it makes Zed stop complaining so whatever
+export component Section(props: { title: string; className?: string; children: Component }) {
+	<section class={props.className}>
+		<h2>{props.title}</h2>
+		<props.children />
+	</section>
+}
+
+component Footer() {
+	<footer>
+		<p>{'© 3 AD'}</p>
+		<img src="../src/assets/dial-up-modem-3485153461.gif" />
+	</footer>
+	<style>
+		img {
+			width: 300px;
+			margin-top: 1rem;
+		}
+	</style>
+}
+
+const SECTIONS = [
+	{
+		title: 'jarx246 website.......',
+		className: 'intro',
+		body: component placeholder() {
+			<div>
+				<p>{'we are workin very hard to make a jarx246 for yuo!'}</p>
+				<img
+					src="https://www.animatedimages.org/data/media/1104/animated-construction-worker-image-0027.gif"
+					class="construction"
+				/>
+			</div>
+		},
+	},
+	{
+		title: 'links',
+		className: 'links',
+		body: component placeholder() {
+			<div>
+				<ul>
+					<li>{'jarx246 blog!'}</li>
+					<li>
+						<a href="https://tedflixapp.xyz">{'Tedflix'}</a>
+					</li>
+				</ul>
+			</div>
+		},
+	},
+];
+
+export component App() {
+	<div class="container">
+		<div class="marquee">
+			<span>{'jarx246 jumpscare!'}</span>
+		</div>
+
+		for (const section of SECTIONS) {
+			<Divider />
+
+			<Section title={section.title} className={section.className}>
+				<section.body />
+			</Section>
+		}
+
+		<Divider />
+		<Footer />
+	</div>
+
+	<style>
+		:root {
+			color-scheme: light dark;
+		}
+
+		:global(img) {
+			image-rendering: optimizeSpeed;
+			/* fallback */
+			image-rendering: pixelated;
+			image-rendering: crisp-edges;
+		}
+
+		:global(body) {
+			background-color: light-dark(white, black);
+			color: light-dark(black, white);
+			-webkit-font-smoothing: none;
+			-moz-osx-font-smoothing: auto;
+			margin: -1;
+			font-family: 'Times New Roman', serif;
+			background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
+			background-repeat: repeat;
+			background-size: auto;
+		}
+
+		:global(div) {
+			margin: 0;
+			padding: 0;
+		}
+
+		.container {
+			width: 800px;
+			margin: 0 auto;
+			padding: 1rem;
+			text-align: center;
+			/* background-color: light-dark(rgba(255, 255, 255, 0.7), rgba(0, 0, 0, 0.7)); */
+			background-color: light-dark(white, black);
+			border: 4px ridge light-dark(pink, cyan);
+			:global {
+				.links ul {
+					list-style: square;
+					padding-left: 1.5rem;
+					text-align: left;
+				}
+				.intro img.construction {
+					width: 120px;
+					display: block;
+					margin: 1rem auto;
+				}
+			}
+		}
+
+		.marquee {
+			overflow: hidden;
+			white-space: nowrap;
+			box-sizing: border-box;
+			span {
+				display: inline-block;
+				padding-left: 100%;
+				animation: marquee 10s linear infinite;
+			}
+		}
+
+		/* Global keyframe - usable in any component */
+		@keyframes -global-marquee {
+			from {
+				transform: translateX(0);
+			}
+			to {
+				transform: translateX(-100%);
+			}
+		}
+	</style>
+}
