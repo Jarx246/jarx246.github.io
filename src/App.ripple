@@ -100,7 +100,7 @@ export component App() {
 			color: light-dark(black, white);
 			-webkit-font-smoothing: none;
 			-moz-osx-font-smoothing: auto;
-			margin: -1;
+			margin: 1;
 			font-family: 'Times New Roman', serif;
 			background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
 			background-repeat: repeat;
@@ -114,6 +114,7 @@ export component App() {
 
 		.container {
 			width: min(800px, 100%);
+			box-sizing: border-box; /* This makes padding and border included *within* the 100% width */
 			margin: 0 auto;
 			padding: 1rem;
 			text-align: center;
