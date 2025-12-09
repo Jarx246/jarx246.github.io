@@ -1,3 +1,4 @@
+import modemGif from './assets/dial-up-modem-3485153461.gif';
 import type { Component } from 'ripple';
 
 component Divider(props: { src?: string }) {
@@ -24,7 +25,7 @@ export component Section(props: { title: string; className?: string; children: C
 component Footer() {
 	<footer>
 		<p>{'© 3 AD'}</p>
-		<img src="../src/assets/dial-up-modem-3485153461.gif" />
+		<img src={modemGif} />
 	</footer>
 	<style>
 		img {
