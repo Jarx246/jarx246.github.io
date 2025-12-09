@@ -9,9 +9,9 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout
-              uses: actions/checkout@latest
+              uses: actions/checkout@v4
 
-            - uses: oven-sh/setup-bun@latest
+            - uses: oven-sh/setup-bun@v2
 
             - name: Install deps
               run: bun install
@@ -20,7 +20,7 @@ jobs:
               run: bun run build
 
             - name: Upload artifact
-              uses: actions/upload-pages-artifact@latest
+              uses: actions/upload-pages-artifact@v3
               with:
                   path: dist
 
