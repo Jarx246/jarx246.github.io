@@ -3,6 +3,7 @@ import type { Component } from 'ripple';
 
 component Divider(props: { src?: string }) {
 	<img
+		loading="lazy"
 		src={props.src ??
 			'https://www.animatedimages.org/data/media/134/animated-dividing-line-image-0080.gif'}
 	/>
@@ -25,7 +26,7 @@ export component Section(props: { title: string; className?: string; children: C
 component Footer() {
 	<footer>
 		<p>{'© 3 AD'}</p>
-		<img src={modemGif} />
+		<img loading="lazy" src={modemGif} />
 	</footer>
 	<style>
 		img {
@@ -35,14 +36,44 @@ component Footer() {
 	</style>
 }
 
-const SECTIONS = [
+component Marquee(props: { children?: any }) {
+	<div>
+		<span><props.children /></span>
+	</div>
+
+	<style>
+		div {
+			overflow: hidden;
+			white-space: nowrap;
+			box-sizing: border-box;
+			span {
+				display: inline-block;
+				padding-left: 100%;
+				animation: marquee 10s linear infinite;
+			}
+		}
+
+		/* Global keyframe - usable in any component */
+		@keyframes -global-marquee {
+			from {
+				transform: translateX(0);
+			}
+			to {
+				transform: translateX(-100%);
+			}
+		}
+	</style>
+}
+
+const SECTIONS: { title: string; className?: string; body: Component }[] = [
 	{
 		title: 'jarx246 website.......',
 		className: 'intro',
-		body: component placeholder() {
+		body: component _() {
 			<div>
 				<p>{'we are workin very hard to make a jarx246 for yuo!'}</p>
 				<img
+					loading="lazy"
 					src="https://www.animatedimages.org/data/media/1104/animated-construction-worker-image-0027.gif"
 					class="construction"
 				/>
@@ -52,7 +83,7 @@ const SECTIONS = [
 	{
 		title: 'links',
 		className: 'links',
-		body: component placeholder() {
+		body: component _() {
 			<div>
 				<ul>
 					<li>{'jarx246 blog!'}</li>
@@ -67,9 +98,7 @@ const SECTIONS = [
 
 export component App() {
 	<div class="container">
-		<div class="marquee">
-			<span>{'jarx246 jumpscare!'}</span>
-		</div>
+		<Marquee>{'jarx246 jumpscare!'}</Marquee>
 
 		for (const section of SECTIONS) {
 			<Divider />
@@ -88,28 +117,31 @@ export component App() {
 			color-scheme: light dark;
 		}
 
-		:global(img) {
-			image-rendering: optimizeSpeed;
-			/* fallback */
-			image-rendering: pixelated;
-			image-rendering: crisp-edges;
-		}
+		/* global rules—don't put too many here */
+		:global {
+			img {
+				image-rendering: optimizeSpeed;
+				/* fallback */
+				image-rendering: pixelated;
+				image-rendering: crisp-edges;
+			}
 
-		:global(body) {
-			background-color: light-dark(white, black);
-			color: light-dark(black, white);
-			-webkit-font-smoothing: none;
-			-moz-osx-font-smoothing: auto;
-			margin: 1;
-			font-family: 'Times New Roman', serif;
-			background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
-			background-repeat: repeat;
-			background-size: auto;
-		}
+			body {
+				background-color: light-dark(white, black);
+				color: light-dark(black, white);
+				-webkit-font-smoothing: none;
+				-moz-osx-font-smoothing: auto;
+				margin: 1;
+				font-family: 'Times New Roman', serif;
+				background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
+				background-repeat: repeat;
+				background-size: auto;
+			}
 
-		:global(div) {
-			margin: 0;
-			padding: 0;
+			div {
+				margin: 0;
+				padding: 0;
+			}
 		}
 
 		.container {
@@ -131,27 +163,6 @@ export component App() {
 					display: block;
 					margin: 1rem auto;
 				}
-			}
-		}
-
-		.marquee {
-			overflow: hidden;
-			white-space: nowrap;
-			box-sizing: border-box;
-			span {
-				display: inline-block;
-				padding-left: 100%;
-				animation: marquee 10s linear infinite;
-			}
-		}
-
-		/* Global keyframe - usable in any component */
-		@keyframes -global-marquee {
-			from {
-				transform: translateX(0);
-			}
-			to {
-				transform: translateX(-100%);
 			}
 		}
 	</style>
