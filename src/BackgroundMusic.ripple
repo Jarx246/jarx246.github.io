@@ -1,0 +1,48 @@
+import { track, effect, on } from 'ripple';
+
+export component BackgroundMusic(props: { srcA?: string; srcB?: string; weightA?: number }) {
+	// tracked ref for the audio element
+	let audioEl = track<HTMLAudioElement | null>(null);
+	
+	const audioRef = (el) => {
+		@audioEl = el;
+		return () => {
+			@audioEl = undefined;
+		};
+	};
+
+	// defaults
+	const srcA = props?.srcA ?? '/audio/songA.mp3';
+	const srcB = props?.srcB ?? '/audio/songB.mp3';
+	const weightA =
+		typeof props?.weightA === 'number' ? props!.weightA : 0.7;
+
+	// When the audio element becomes available, pick a track and set up gesture fallback
+	effect(() => {
+		if (!@audioEl) return; // wait for the ref to be set
+
+		// Weighted random pick
+		const p = Math.random();
+		@audioEl.src = p < weightA ? srcA : srcB;
+
+		// ensure looping at the element level (redundant with loop attr but explicit)
+		@audioEl.loop = true;
+
+		// Try to play right away (may be blocked by autoplay policies)
+		@audioEl.play().catch(() => {
+			/* autoplay blocked — will rely on user gesture */
+		});
+
+		// Attach a one-time window click (or tap) listener that will attempt playback again
+		const remove = on(window, 'click', () => {
+			@audioEl.play().catch(() => {});
+			remove(); // remove listener after first run
+		});
+
+		// cleanup when component/unmount or audioEl changes
+		return remove;
+	});
+
+	// Hidden audio element (no visible controls). If you want a visible control, remove style.
+	<audio {ref audioRef} loop style={`display: none;`} aria-label="Background music" />
+}

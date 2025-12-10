@@ -1,5 +1,8 @@
 import modemGif from './assets/dial-up-modem-3485153461.gif';
+import music1 from './assets/music1.mp3';
+import music2 from './assets/music2.mp3';
 import type { Component } from 'ripple';
+import { BackgroundMusic } from './BackgroundMusic.ripple';
 
 component Divider(props: { src?: string }) {
 	<img
@@ -98,6 +101,7 @@ const SECTIONS: { title: string; className?: string; body: Component }[] = [
 
 export component App() {
 	<div class="container">
+		<BackgroundMusic srcA={music1} srcB={music2} weightA={0.02} />
 		<Marquee>{'jarx246 jumpscare!'}</Marquee>
 
 		for (const section of SECTIONS) {
