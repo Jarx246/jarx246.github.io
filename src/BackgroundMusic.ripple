@@ -3,8 +3,8 @@ import { track, effect, on } from 'ripple';
 export component BackgroundMusic(props: { srcA?: string; srcB?: string; weightA?: number }) {
 	// tracked ref for the audio element
 	let audioEl = track<HTMLAudioElement | null>(null);
-	
-	const audioRef = (el) => {
+
+	const audioRef = (el: HTMLAudioElement) => {
 		@audioEl = el;
 		return () => {
 			@audioEl = undefined;
@@ -44,5 +44,5 @@ export component BackgroundMusic(props: { srcA?: string; srcB?: string; weightA?
 	});
 
 	// Hidden audio element (no visible controls). If you want a visible control, remove style.
-	<audio {ref audioRef} loop style={`display: none;`} aria-label="Background music" />
+	<audio {ref audioRef} loop style={{ display: 'none' }} aria-label="Background music" />
 }
