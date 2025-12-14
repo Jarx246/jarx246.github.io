@@ -24,7 +24,7 @@
 		"@ripple-ts/eslint-parser": "latest",
 		"typescript": "^5.9.2",
 		"@typescript-eslint/parser": "^8.20.0",
-		"vite": "^7.1.4",
+		"vite": "^8.0.0-beta.0",
 		"@ripple-ts/vite-plugin": "latest",
 		"@ripple-ts/typescript-plugin": "latest"
 	},

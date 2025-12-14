@@ -89,10 +89,17 @@ const SECTIONS: { title: string; className?: string; body: Component }[] = [
 		body: component _() {
 			<div>
 				<ul>
-					<li>{'jarx246 blog!'}</li>
 					<li>
-						<a href="https://tedflixapp.xyz">{'Tedflix'}</a>
+						<a href="https://jarx246.github.io/shiba-incremental/">
+							{'shiba incremental!'}
+						</a>
 					</li>
+					<li>
+						<a href="https://jarx246.github.io/solid-test/">
+							{'solid-start test site'}
+						</a>
+					</li>
+					// <li><a href="https://tedflixapp.xyz">{'Tedflix'}</a></li>
 				</ul>
 			</div>
 		},
